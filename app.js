@@ -1,0 +1,29 @@
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+// const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+
+// We create our own server named app
+// Express server handling requests and responses
+const app = express();
+
+// MIDDLEWARES
+
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+// SET STATIC FOLDER FOR PUBLIC FILES
+app.use(express.static(path.join(__dirname, "public")));
+
+
+// MIDDLEWARES ROUTES
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+
+module.exports = app;
