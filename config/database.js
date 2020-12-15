@@ -21,4 +21,26 @@ mongoose
   })
   .catch((err) => console.error(err));
 
-// module.exports = connectDB;
+// connect to the database and drop any old data
+const connectAndDrop = async () => {
+  await mongoose
+    .connect(process.env.MONGODB_URI, {
+      keepAlive: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((x) => {
+      console.log(
+        `Connected to database! Database name: "${x.connections[0].name}"`
+      );
+    })
+    .catch((err) => console.error(err));
+
+  await mongoose.connection.db.dropDatabase();
+};
+
+const disconnect = async () => {
+  await mongoose.disconnect();
+};
+
+module.exports = { connectAndDrop, disconnect };
