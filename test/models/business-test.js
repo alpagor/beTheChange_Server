@@ -128,7 +128,7 @@ describe("business", () => {
         expect(error.errors.shipping).to.exist;
       });
     });
-    /*
+    
     // este test no pasa, porqué? tiene algo que ver con sea un array de Strings?
     // pero lo que queremos validar es que no esté vacío...
     // respuesta : as arrays in Mongoose implicity have a default value of [] we need to
@@ -140,7 +140,7 @@ describe("business", () => {
         expect(error.errors.categories).to.exist;
       });
     }); 
-    este test debería ir en el test de categories model?
-    */
+    // este test debería ir en el test de categories model?
+    
   });
 });
