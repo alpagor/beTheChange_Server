@@ -42,7 +42,7 @@ const BusinessSchema = new Schema({
     {
       type: Schema.Types.ObjectId, // store the id of the related model
       ref: "Categories", // ref tells the schema which model can be asigned to the field
-      required: true,
+      // required: true,
       default: undefined,
     },
   ],

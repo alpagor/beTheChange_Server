@@ -3,7 +3,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 // const bodyParser = require('body-parser')
-const database = require('./config/database');
+require('./config/database');
 
 
 const indexRouter = require("./routes/index");
