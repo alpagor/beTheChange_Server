@@ -3,7 +3,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 // const bodyParser = require('body-parser')
-const mongoose = require('mongoose');
+const database = require('./config/database');
+
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -20,7 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // SET STATIC FOLDER FOR PUBLIC FILES
 app.use(express.static(path.join(__dirname, "public")));
-
 
 // MIDDLEWARES ROUTES
 app.use("/", indexRouter);

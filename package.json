@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "test": "mocha test/**/*.js"
+    "test": "mocha test/**/*.js",
+    "seed": "node ./bin/seed-business.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
