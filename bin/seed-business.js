@@ -15,6 +15,7 @@ const categories = [
 const businesses = [
   {
     name: "MATT & NAT",
+    location: "France",
     url: "https://mattandnat.com",
     img:
       "https://cdn.shopify.com/s/files/1/0325/6569/0501/files/Matt_Nat_black_tagline_black.png?height=628&pad_color=ffffff&v=1596575740&width=1200",
@@ -28,6 +29,10 @@ const businesses = [
       "Europe",
       "International",
       "Australia",
+      "Africa",
+      "Central & South America",
+      "Middle East",
+      "New Zeland",
     ],
     categories: [],
   },

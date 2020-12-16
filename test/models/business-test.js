@@ -11,9 +11,12 @@ describe("business", () => {
     afterEach(disconnect);
     // Testing the paths
     describe("#save", () => {
+      // why this test takes more than 190ms? Why in the console it
+      // looks we conect twice to the db?
       it("persists a business", async () => {
         const fields = {
           name: "MATT & NAT",
+          location: "France",
           url: "https://mattandnat.com",
           img:
             "https://cdn.shopify.com/s/files/1/0325/6569/0501/files/Matt_Nat_black_tagline_black.png?height=628&pad_color=ffffff&v=1596575740&width=1200",
@@ -35,15 +38,13 @@ describe("business", () => {
         await business.save();
 
         const stored = await Business.find({
-          "name": "MATT & NAT",
+          name: "MATT & NAT",
         });
 
-        assert.strictEqual(stored.length, 1,'1 document saved');
+        assert.strictEqual(stored.length, 1, "1 document saved");
         // assert.deepInclude(stored[0], fields);
-        expect(stored[0]).to.deep.include(fields)  
-        
+        expect(stored[0]).to.deep.include(fields);
       });
-      
     });
     describe("#name", () => {
       it("is a String", () => {
@@ -54,6 +55,14 @@ describe("business", () => {
         });
         // Verify
         assert.strictEqual(business.name, "nae-vegan");
+      });
+    });
+    describe("#location", () => {
+      it("is a String", () => {
+        const business = new Business({
+          location: "France",
+        });
+        assert.strictEqual(business.location, "France");
       });
     });
     describe("#url", () => {
@@ -132,6 +141,14 @@ describe("business", () => {
         // each error has a .path describing the full path of the
         // property that failed validation
         expect(error.errors.name).to.exist;
+      });
+    });
+    it("should be invalid if locations is empty", () => {
+      const business = new Business();
+
+      business.validate((error) => {
+
+        expect(error.errors.location).to.exist;
       });
     });
     it("should be invalid if url is empty", () => {

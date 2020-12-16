@@ -7,6 +7,10 @@ const BusinessSchema = new Schema({
     type: String,
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
   url: {
     type: String,
     required: true,
@@ -29,16 +33,14 @@ const BusinessSchema = new Schema({
     required: true,
     default: undefined,
   },
-  categories: 
-    {
-      // type: Schema.Types.ObjectId, // store the id of the related model
-      // ref: "Categories", // ref tells the schema which model can be asigned to the field
-      type: [Schema.Types.ObjectId],
-      ref: "Categories",
-      required: true,
-      default: undefined,
-    },
-  
+  categories: {
+    // type: Schema.Types.ObjectId, // store the id of the related model
+    // ref: "Categories", // ref tells the schema which model can be asigned to the field
+    type: [Schema.Types.ObjectId],
+    ref: "Categories",
+    required: true,
+    default: undefined,
+  },
 });
 
 module.exports = mongoose.model("Business", BusinessSchema);
