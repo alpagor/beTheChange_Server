@@ -2,12 +2,8 @@ const Business = require("../../models/business");
 const { assert, expect } = require("chai");
 const { connectAndDrop, disconnect } = require("../../config/database.js");
 describe("business", () => {
-
-
   describe("path definition", () => {
-    // HOOKS
-
-
+    
     // Testing the paths
 
     describe("#name", () => {
@@ -60,22 +56,20 @@ describe("business", () => {
     describe("#categories", () => {
       it("is an Array of strings", () => {
         const business = new Business({
-          
-          categories: ["Cosmetics","Clothes"],
+          categories: ["Cosmetics", "Clothes"],
         });
-        assert.deepEqual(business.categories, ["Cosmetics","Clothes"]); // deepEqual because it's an Array comparision
+        assert.deepEqual(business.categories, ["Cosmetics", "Clothes"]); // deepEqual because it's an Array comparision
       });
     });
     describe("#tags", () => {
       it("is an Array of strings", () => {
         const business = new Business({
-          
-          tags: ["vegan","ethic"],
+          tags: ["vegan", "ethic"],
         });
-        assert.deepEqual(business.tags, ["vegan","ethic"]); // deepEqual because it's an Array comparision
+        assert.deepEqual(business.tags, ["vegan", "ethic"]); // deepEqual because it's an Array comparision
       });
     });
-    
+
     describe("#certifications", () => {
       it("is an array of Strings", () => {
         const business = new Business({
@@ -115,7 +109,6 @@ describe("business", () => {
       const business = new Business();
 
       business.validate((error) => {
-
         expect(error.errors.location).to.exist;
       });
     });

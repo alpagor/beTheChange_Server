@@ -7,6 +7,7 @@ require("./config/database");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const businessRouter = require("./routes/businessRouter");
 
 // We create our own server named app
 // Express server handling requests and responses
@@ -24,5 +25,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // MIDDLEWARES ROUTES
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/business", businessRouter);
 
 module.exports = app;
