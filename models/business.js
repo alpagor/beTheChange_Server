@@ -34,13 +34,32 @@ const BusinessSchema = new Schema({
     default: undefined,
   },
   categories: {
-    // type: Schema.Types.ObjectId, // store the id of the related model
-    // ref: "Categories", // ref tells the schema which model can be asigned to the field
-    type: [Schema.Types.ObjectId],
-    ref: "Categories",
+    type: [String],
     required: true,
     default: undefined,
-  },
+    enum: [
+      'Cosmetics',
+      'Bags',
+      'Accessories',
+      'Clothes',
+      'Basics',
+      'Shoes',
+      'Food'
+    ]
+  },  
+  tags: {
+    type: [String],
+    required: true,
+    default: undefined,
+    enum: [
+      'eco',
+      'vegan',
+      'vegetarian',
+      'ethic',
+      'bio',
+      'circular economy'
+    ]
+  },  
 });
 
 module.exports = mongoose.model("Business", BusinessSchema);

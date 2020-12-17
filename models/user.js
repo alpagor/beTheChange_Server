@@ -11,19 +11,7 @@ const CategoriesSchema = new Schema({
     type: String,
     required: true,
   },
-  tags: {
-    type: [String],
-    required: true,
-    default: undefined,
-    enum: [
-      'eco',
-      'vegan',
-      'vegetarian',
-      'ethic',
-      'bio',
-      'circular economy'
-    ]
-  },  
+  
 });
 
 module.exports = mongoose.model("Categories", CategoriesSchema);

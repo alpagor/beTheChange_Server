@@ -2,50 +2,14 @@ const Business = require("../../models/business");
 const { assert, expect } = require("chai");
 const { connectAndDrop, disconnect } = require("../../config/database.js");
 describe("business", () => {
+
+
   describe("path definition", () => {
     // HOOKS
 
-    // Before each test, beforeEach hook will connect to the database and drop any old data
-    beforeEach(connectAndDrop);
-    // After each test, afterEach hook will disconnect from the database
-    afterEach(disconnect);
+
     // Testing the paths
-    describe("#save", () => {
-      // why this test takes more than 190ms? Why in the console it
-      // looks we conect twice to the db?
-      it("persists a business", async () => {
-        const fields = {
-          name: "MATT & NAT",
-          location: "France",
-          url: "https://mattandnat.com",
-          img:
-            "https://cdn.shopify.com/s/files/1/0325/6569/0501/files/Matt_Nat_black_tagline_black.png?height=628&pad_color=ffffff&v=1596575740&width=1200",
-          description:
-            "M&N is a vegan brand therefore there are no animal products used in production.",
-          certifications: ["Vegan"],
-          shipping: [
-            "Canada",
-            "United States",
-            "UK",
-            "Europe",
-            "International",
-            "Australia",
-          ],
-          categories: [],
-        };
-        const business = new Business(fields);
 
-        await business.save();
-
-        const stored = await Business.find({
-          name: "MATT & NAT",
-        });
-
-        assert.strictEqual(stored.length, 1, "1 document saved");
-        // assert.deepInclude(stored[0], fields);
-        expect(stored[0]).to.deep.include(fields);
-      });
-    });
     describe("#name", () => {
       it("is a String", () => {
         // Setup
@@ -93,21 +57,25 @@ describe("business", () => {
         assert.strictEqual(business.description, "es una tienda vegana");
       });
     });
-    /*
-    // how to assert that the values that are inside
-    // the enum are those that I expect? Is just simple as
-    // exerceise using the enum?
     describe("#categories", () => {
-      it("is an Array of strings id", () => {
-        const Objectids = ["sho5294e1005e953e0dcbc515db", "5294e1005e953e0dcbc516db"];
+      it("is an Array of strings", () => {
         const business = new Business({
           
-          categories: Objectids,
+          categories: ["Cosmetics","Clothes"],
         });
-        assert.deepEqual(business.categories, Objectids); // deepEqual because it's an Array comparision
+        assert.deepEqual(business.categories, ["Cosmetics","Clothes"]); // deepEqual because it's an Array comparision
       });
     });
-    */
+    describe("#tags", () => {
+      it("is an Array of strings", () => {
+        const business = new Business({
+          
+          tags: ["vegan","ethic"],
+        });
+        assert.deepEqual(business.tags, ["vegan","ethic"]); // deepEqual because it's an Array comparision
+      });
+    });
+    
     describe("#certifications", () => {
       it("is an array of Strings", () => {
         const business = new Business({
@@ -179,6 +147,13 @@ describe("business", () => {
         expect(error.errors.certifications).to.exist;
       });
     });
+    it("should be invalid if categories is empty", () => {
+      const business = new Business();
+
+      business.validate((error) => {
+        expect(error.errors.categories).to.exist;
+      });
+    });
     it("should be invalid if shipping is empty", () => {
       const business = new Business();
 
@@ -198,6 +173,12 @@ describe("business", () => {
         expect(error.errors.categories).to.exist;
       });
     });
-    // este test debería ir en el test de categories model?
+    it("should be invalid if tags is empty", () => {
+      const business = new Business();
+
+      business.validate((error) => {
+        expect(error.errors.tags).to.exist;
+      });
+    });
   });
 });
