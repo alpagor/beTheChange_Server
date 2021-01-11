@@ -1,4 +1,4 @@
-const Business = require("../../models/business");
+const Business = require("../../models/business-model");
 const { assert, expect } = require("chai");
 const { connectAndDrop, disconnect } = require("../../config/database.js");
 describe("business", () => {
@@ -9,6 +9,7 @@ describe("business", () => {
     describe("#name", () => {
       it("is a String", () => {
         // Setup
+        // construct a new instance of the business model.
         const business = new Business({
           // Exercise
           name: "nae-vegan",
