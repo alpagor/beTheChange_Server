@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const usersRouter = express.Router();
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+usersRouter.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-module.exports = router;
+module.exports = usersRouter;
 /**
  The users.js file is using the same / path. This is because in app.js, 
  it was already defined that /users would use users.js. 

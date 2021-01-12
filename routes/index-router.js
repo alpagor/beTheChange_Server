@@ -1,18 +1,16 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const indexRouter = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+indexRouter.get("/", function (req, res, next) {
+  res.render("index");
 });
 
-
-
-module.exports = router;
+module.exports = indexRouter;
 
 /*
 Here is where the action starts happening. At the top of the file, 
-the express router is required and initialized into the router variable. 
+the express router is required and initialized into the router constiable. 
 After that we can see that a get() function is called. That function accepts 
 two arguments.
 The first argument is the path of the route. 

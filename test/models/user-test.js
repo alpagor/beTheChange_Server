@@ -4,7 +4,7 @@ const { connectAndDrop, disconnect } = require("../../config/database.js");
 
 describe("user", () => {
   describe("path definition", () => {
-    describe("#userName", () => {
+    describe("#username", () => {
       it("is a string", () => {
         // Setup
         const user = new User({
@@ -12,25 +12,25 @@ describe("user", () => {
           userName: "alpagor",
         });
         // Verify
-        assert.strictEqual(user.userName, "alpagor");
+        assert.strictEqual(user.username, "alpagor");
       });
     });
-    describe("#fullName", () => {
-      it("is a string", () => {
-        const user = new User({
-          fullName: "Iwill Doit",
-        });
-        assert.strictEqual(user.fullName, "Iwill Doit");
-      });
-    });
-    describe("#email", () => {
-      it("is a string", () => {
-        const user = new User({
-          email: "iwildoit@gmail.com",
-        });
-        assert.strictEqual(user.email, "iwildoit@gmail.com");
-      });
-    });
+    // describe("#fullName", () => {
+    //   it("is a string", () => {
+    //     const user = new User({
+    //       fullName: "Iwill Doit",
+    //     });
+    //     assert.strictEqual(user.fullName, "Iwill Doit");
+    //   });
+    // });
+    // describe("#email", () => {
+    //   it("is a string", () => {
+    //     const user = new User({
+    //       email: "iwildoit@gmail.com",
+    //     });
+    //     assert.strictEqual(user.email, "iwildoit@gmail.com");
+    //   });
+    // });
     describe("#password", () => {
       it("is a string", () => {
         const user = new User({
@@ -41,7 +41,7 @@ describe("user", () => {
     });
   });
   describe("model validation", () => {
-    it("should be invalid if userName is empty", () => {
+    it("should be invalid if username is empty", () => {
       const user = new User();
       // Before running validators, Mongoose attempts to coerce values to the correct type.
       // This process is called casting the document. If casting fails for a given path,
@@ -50,24 +50,24 @@ describe("user", () => {
         // In the callback, do an assertion for the error property
         // each error has a .path describing the full path of the
         // property that failed validation
-        expect(error.errors.userName).to.exist;
+        expect(error.errors.username).to.exist;
       });
     });
-    it("should be invalid if locations is empty", () => {
-      const user = new User();
+    // it("should be invalid if locations is empty", () => {
+    //   const user = new User();
 
-      user.validate((error) => {
-        expect(error.errors.fullName).to.exist;
-      });
-    });
-    it("should be invalid if locations is empty", () => {
-      const user = new User();
+    //   user.validate((error) => {
+    //     expect(error.errors.fullName).to.exist;
+    //   });
+    // });
+    // it("should be invalid if locations is empty", () => {
+    //   const user = new User();
 
-      user.validate((error) => {
-        expect(error.errors.email).to.exist;
-      });
-    });
-    it("should be invalid if locations is empty", () => {
+    //   user.validate((error) => {
+    //     expect(error.errors.email).to.exist;
+    //   });
+    // });
+    it("should be invalid if password is empty", () => {
       const user = new User();
 
       user.validate((error) => {
