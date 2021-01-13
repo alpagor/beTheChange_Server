@@ -1,4 +1,4 @@
-const Business = require("../../models/business");
+const Business = require("../../models/business-model");
 const { assert, expect } = require("chai");
 const { connectAndDrop, disconnect } = require("../../config/database.js");
 const request = require("supertest");
@@ -91,13 +91,14 @@ describe("business", () => {
         // const response = await request(app).get(`/business/${id}`);
         // // Verify
         // assert.equal(response.status, 200);
-  
+
         // expect(response.body).to.deep.equal(newBusiness);
-        const business = await Business.findOne({name: "SKFK"});
+        const business = await Business.findOne({ name: "SKFK" });
         const id = business._id;
-        request.get('/businesss/' + business.id)
+        request
+          .get("/businesss/" + id)
           .expect(200)
-          .end(function(err, res) {
+          .end(function (err, res) {
             expect(res.body).to.eql(business);
             done(err);
           });

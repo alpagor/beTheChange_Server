@@ -9,7 +9,7 @@ describe("user", () => {
         // Setup
         const user = new User({
           // Exercise
-          userName: "alpagor",
+          username: "alpagor",
         });
         // Verify
         assert.strictEqual(user.username, "alpagor");

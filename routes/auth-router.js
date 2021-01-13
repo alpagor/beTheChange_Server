@@ -8,15 +8,13 @@ authRouter = express.Router();
 // When the user sends a POST request to this route, Passport authenticates the user based on the middleware auth.js
 authRouter.post(
   "/signup",
-  passport.authenticate("signup", {
-    successRedirect: "/",
-    failureRedirect: "/signup",
-    failureFlash: true,
-  }),
+  //
+  passport.authenticate("signup"),
   async (req, res, next) => {
+    // If this function gets called, authentication was successful.
     res.json({
       message: "Signup successful",
-      user: req.user,
+      user: req.user, // `req.user` contains the authenticated user.
     });
   }
 );

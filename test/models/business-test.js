@@ -1,4 +1,4 @@
-const Business = require("../../models/business-model");
+const Business = require("../../models/business-model.js")
 const { assert, expect } = require("chai");
 const { connectAndDrop, disconnect } = require("../../config/database.js");
 describe("business", () => {
