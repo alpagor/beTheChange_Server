@@ -34,7 +34,11 @@ app.use("/auth", authRouter);
 // app.use("/users", usersRouter);
 // app.use("/business", businessRouter);
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use("/user", passport.authenticate("jwt"), profileRouter);
+app.use(
+  "/user",
+  passport.authenticate("jwt", { session: false }),
+  profileRouter
+);
 
 // HANDLE ERRORS
 app.use(function (err, req, res, next) {
