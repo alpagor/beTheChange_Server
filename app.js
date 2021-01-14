@@ -3,11 +3,6 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const passport = require("passport");
-// const bodyParser = require('body-parser')
-
-require("./config/database");
-require("./middlewares/auth");
-require("./models/user-model");
 
 const indexRouter = require("./routes/index-router");
 const usersRouter = require("./routes/users");
@@ -19,19 +14,25 @@ const profileRouter = require("./routes/secure-routes");
 // Express server handling requests and responses
 const app = express();
 
+// Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
+require("./config/database");
+// Must first load the models
+require("./models/user-model");
+require("./middlewares/auth");
+
 // MIDDLEWARES
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false })); // same of body-parser
+app.use(express.urlencoded({ extended: true })); // 'true' for parsing application/x-www-form-urlencoded
 app.use(cookieParser());
 // SET STATIC FOLDER FOR PUBLIC FILES
 app.use(express.static(path.join(__dirname, "public")));
 
 // MIDDLEWARES ROUTES
-app.use("/", indexRouter); // load the router on '/'
+// app.use("/", indexRouter); // load the router on '/'
 app.use("/auth", authRouter);
-app.use("/users", usersRouter);
-app.use("/business", businessRouter);
+// app.use("/users", usersRouter);
+// app.use("/business", businessRouter);
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
 app.use("/user", passport.authenticate("jwt"), profileRouter);
 
