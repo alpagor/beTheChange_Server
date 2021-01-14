@@ -2,14 +2,18 @@ const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
+
 authRouter = express.Router();
 
 // handling POST request for signup
 // When the user sends a POST request to this route, Passport authenticates the user based on the middleware auth.js
 authRouter.post(
   "/signup",
-  //
-  passport.authenticate("signup"),
+  passport.authenticate("signup", {
+    successRedirect: "/profile", //redirect to the secure profile section
+    failureRedirect: "/signup", // redirect back to the signup page if there is an error
+    failureFlash: true, // allow flash messages
+  }),
   async (req, res, next) => {
     // If this function gets called, authentication was successful.
     res.json({
