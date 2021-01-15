@@ -63,3 +63,8 @@ passport.use(
     }
   )
 );
+/**
+ This code uses passport-jwt to extract the JWT from the query parameter. It then verifies that this token has been signed 
+ with the secret or key set during logging in (TOP_SECRET). If the token is valid, the user details are passed to the next
+middleware
+ */

@@ -28,12 +28,21 @@ authRouter.post("/login", async (req, res, next) => {
 
         return next(error);
       }
-
+      /**
+       * We set { session: false } because we do not want to store the user details in a session.
+       * user will send the token on each request to the secure routes.
+       */
       req.login(user, { session: false }, async (error) => {
         if (error) return next(error);
 
         const body = { _id: user._id, username: user.username };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
+        /**
+         We store id and email in the payload of the JWT. Then sign the token with a secret or key (TOP_SECRET). 
+         Finally, send back the token to the user.
+         */
+        const token = jwt.sign({ user: body }, "TOP_SECRET", {
+          expiresIn: "1h",
+        });
 
         return res.json({ token });
       });
@@ -41,6 +50,11 @@ authRouter.post("/login", async (req, res, next) => {
       return next(error);
     }
   })(req, res, next);
+});
+
+authRouter.get("/logout", function (req, res) {
+  req.logout();
+  res.send({ message: "Successfully logged out" });
 });
 
 module.exports = authRouter;
