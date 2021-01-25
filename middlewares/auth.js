@@ -7,45 +7,57 @@ const ExtractJWT = require("passport-jwt").ExtractJwt;
 
 passport.use(
   "signup",
-  new localStrategy(async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username });
-      if (user) {
-        return done(null, false);
+  new localStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
+    async (email, password, done) => {
+      try {
+        const user = await User.findOne({ email });
+        if (user) {
+          return done(null, false);
+        }
+        const newUser = await User.create({ email, password });
+        // the verify callback invokes 'done' to supply Passport with the user that authenticated.
+        console.log("User Registration succesful");
+        return done(null, newUser);
+      } catch (error) {
+        done(error);
       }
-      const newUser = await User.create({ username, password });
-      // the verify callback invokes 'done' to supply Passport with the user that authenticated.
-      console.log("User Registration succesful");
-      return done(null, newUser);
-    } catch (error) {
-      done(error);
     }
-  })
+  )
 );
 
 // ...
 
 passport.use(
   "login",
-  new localStrategy(async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username });
+  new localStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
+    async (email, password, done) => {
+      try {
+        const user = await User.findOne({ email });
 
-      if (!user) {
-        return done(null, false, { message: "User not found" });
+        if (!user) {
+          return done(null, false, { message: "User not found" });
+        }
+
+        const validate = await user.isValidPassword(password);
+
+        if (!validate) {
+          return done(null, false, { message: "Wrong Password" });
+        }
+
+        return done(null, user, { message: "Logged in Successfully" });
+      } catch (error) {
+        return done(error);
       }
-
-      const validate = await user.isValidPassword(password);
-
-      if (!validate) {
-        return done(null, false, { message: "Wrong Password" });
-      }
-
-      return done(null, user, { message: "Logged in Successfully" });
-    } catch (error) {
-      return done(error);
     }
-  })
+  )
 );
 
 passport.use(

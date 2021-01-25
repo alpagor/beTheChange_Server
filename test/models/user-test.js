@@ -4,7 +4,7 @@ const { connectAndDrop, disconnect } = require("../../config/database.js");
 
 describe("user", () => {
   describe("path definition", () => {
-    describe("#username", () => {
+    describe("#email", () => {
       it("is a string", () => {
         // Setup
         const user = new User({
@@ -12,7 +12,7 @@ describe("user", () => {
           username: "alpagor",
         });
         // Verify
-        assert.strictEqual(user.username, "alpagor");
+        assert.strictEqual(user.email, "alpagor");
       });
     });
     // describe("#fullName", () => {

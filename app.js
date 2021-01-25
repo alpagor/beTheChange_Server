@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/", indexRouter); // load the router on '/'
 app.use("/auth", authRouter);
 // app.use("/users", usersRouter);
-// app.use("/business", businessRouter);
+app.use("/business", businessRouter);
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
 app.use(
   "/user",
