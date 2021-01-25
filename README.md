@@ -20,6 +20,9 @@ In this directory, you will find web pages that sell different products, Clothin
 
 ### Setup  📋
 
+- Fork this repo
+- Clone this repo
+
 ```
 $ cd bethechange_Server
 $ npm install
