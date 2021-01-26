@@ -38,28 +38,29 @@ const BusinessSchema = new Schema({
     required: true,
     default: undefined,
     enum: [
-      'Cosmetics',
-      'Bags',
-      'Accessories',
-      'Clothes',
-      'Basics',
-      'Shoes',
-      'Food'
-    ]
-  },  
+      "Cosmetics",
+      "Bags",
+      "Accessories",
+      "Clothes",
+      "Basics",
+      "Shoes",
+      "Food",
+    ],
+  },
   tags: {
     type: [String],
     required: true,
     default: undefined,
     enum: [
-      'eco',
-      'vegan',
-      'vegetarian',
-      'ethic',
-      'bio',
-      'circular economy'
-    ]
-  },  
+      "eco",
+      "vegan",
+      "vegetarian",
+      "ethic",
+      "bio",
+      "circular economy",
+      "recycled",
+    ],
+  },
 });
 
 module.exports = mongoose.model("Business", BusinessSchema);
