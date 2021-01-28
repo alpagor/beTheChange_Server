@@ -112,7 +112,7 @@ name: {
 
 | Method | Route                                  | Description                                                  |
 | ------ | -------------------------------------- | :----------------------------------------------------------- |
-| POST   | `/auth/signup`                         | Sends Sign Up info to the server and then create user in the DB with encrypted password.. |
+| POST   | `/auth/signup`                         | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
 | POST   | `/auth/login`                          | Sends Login form data to the server.                         |
 | POST   | `/auth/logout`                         | Logs out the user. Renders de Home index view.               |
 | GET    | `/api/business/categories/:categoryId` | Returns business list for the selected category              |
@@ -122,7 +122,7 @@ name: {
 | DELETE | `/api/user/profile`                    | Private route. Deletes the profile from the server and updates DB. |
 | POST   | `/api/business`                        | Private route. Sends Business info to the server and creates business in the DB. |
 | PUT    | `/api/business/businessId`             | Private route. Updates one specific business from the current user in the DB. |
-| DELETE | `/api/business/businessId`             | Private route. Deletes one specific business from the server and updates DB. |
+| DELETE | `/api/business/:businessId`            | Private route. Deletes one specific business from the server and updates DB. |
 
 ## Running the tests ⚙️
 

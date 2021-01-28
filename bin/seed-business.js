@@ -1,5 +1,5 @@
 require("../config/database"); // we require connectDB on database file
-const Business = require("../models/business");
+const Business = require("../models/business-model");
 const mongoose = require("mongoose");
 
 const businesses = [
@@ -24,8 +24,8 @@ const businesses = [
       "Middle East",
       "New Zeland",
     ],
-    categories: ['Cosmetics','Bags'],
-    tags: ["ethic", "circular economy"]
+    categories: ["Cosmetics", "Bags"],
+    tags: ["ethic", "circular economy"],
   },
   {
     name: "SKFK",
@@ -48,8 +48,20 @@ const businesses = [
       "Middle East",
       "New Zeland",
     ],
-    categories: ['Cosmetics','Bags'],
-    tags: ["ethic", "circular economy"]
+    categories: ["Cosmetics", "Bags"],
+    tags: ["ethic", "circular economy"],
+  },
+  {
+    name: "VEGACELONA",
+    location: "Spain",
+    url: "https://www.vegacelona.com",
+    img:
+      "https://vegacelona.com/wp-content/uploads/2020/09/LOGO-VEGACELONA-EMPATHY-SHOP-1-.png",
+    description: "Tienda de alimentación vegana",
+    certifications: ["none"],
+    shipping: ["Europe"],
+    categories: ["Food"],
+    tags: ["vegan"],
   },
 ];
 

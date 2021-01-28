@@ -27,29 +27,19 @@ const Business = require("../../models/business-model");
 // GET "/api/business"
 // eg:  GET "/api/business?categories=shoes"
 
-businessRouter.get("/", async (req, res) => {
+// Show business list for the selected category
+businessRouter.get("/categories/:category", async (req, res, next) => {
   try {
-    // if a business category have been selected created queryObject is { categories: businessCategory }
-    let businessCategory;
-    if (req.query.categories) {
-      businessCategory = req.query.categories;
-    } else {
-      const businesses = await Business.find();
-      res.status(200).json(businesses);
-    }
-  } catch (error) {
-    res.status(500).json(error);
+    const { category } = req.params;
+
+    const businesses = await Business.find({ categories: category });
+
+    console.log(businesses);
+
+    res.json(businesses).status(200);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
-
-//Returns specific recipe by Id
-businessRouter.get("/:id", async (req, res) => {
-    try {
-        const { businessId } = req.params;
-        Business.findById()
-    } catch(error){}
-
-  });
-  
 
 module.exports = businessRouter;
