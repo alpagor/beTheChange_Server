@@ -23,10 +23,6 @@ const Business = require("../../models/business-model");
 //   }
 // });
 
-// Send business list by category
-// GET "/api/business"
-// eg:  GET "/api/business?categories=shoes"
-
 // Show business list for the selected category
 businessRouter.get("/categories/:category", async (req, res, next) => {
   try {

@@ -1,9 +1,9 @@
 # Be The Change
 
 Be the change aims to be a directory of websites whose products help us reduce our impact on the environment.
-In this directory, you will find web pages that sell different products, Clothing, Cosmetics, Shoes, Food, etc ... but that have a common concern for the environmental and social impact of their products. 
+In this directory, you will find web pages that sell different products, Clothing, Cosmetics, Shoes, Food, etc ... but that have a common concern for the environmental and social impact of their products.
 
-#### User  Stories 
+#### User Stories
 
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault.
 - **500** - As a user I want to see a nice error page so that I know that is not my fault.
@@ -18,7 +18,7 @@ In this directory, you will find web pages that sell different products, Clothin
 
 ## Getting started 🚀
 
-### Setup  📋
+### Setup 📋
 
 - Fork this repo
 - Clone this repo
@@ -43,8 +43,6 @@ $ npm run start
     required: true,
   }
 ```
-
-
 
 - Business Model
 
@@ -92,7 +90,7 @@ name: {
       'Shoes',
       'Food'
     ]
-  },  
+  },
   tags: {
     type: [String],
     required: true,
@@ -110,23 +108,23 @@ name: {
 
 ### Endpoints (backend routes)
 
-| Method | Route                                  | Description                                                  |
-| ------ | -------------------------------------- | :----------------------------------------------------------- |
-| POST   | `/auth/signup`                         | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
-| POST   | `/auth/login`                          | Sends Login form data to the server.                         |
-| POST   | `/auth/logout`                         | Logs out the user. Renders de Home index view.               |
-| GET    | `/api/business/categories/:categoryId` | Returns business list for the selected category              |
-| GET    | `/api/business/:businessid`            | Returns specific business by id                              |
-| GET    | `/api/user/profile`                    | Private route.Get the business profile of the current user (via JWT) |
-| PUT    | `/api/user/profile`                    | Private route. Updates the existing business info from the current user in the DB. |
-| DELETE | `/api/user/profile`                    | Private route. Deletes the profile from the server and updates DB. |
-| POST   | `/api/business`                        | Private route. Sends Business info to the server and creates business in the DB. |
-| PUT    | `/api/business/businessId`             | Private route. Updates one specific business from the current user in the DB. |
-| DELETE | `/api/business/:businessId`            | Private route. Deletes one specific business from the server and updates DB. |
+| Method | Route                                | Description                                                                              |
+| ------ | ------------------------------------ | :--------------------------------------------------------------------------------------- |
+| POST   | `/auth/signup`                       | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
+| POST   | `/auth/login`                        | Sends Login form data to the server.                                                     |
+| POST   | `/auth/logout`                       | Logs out the user. Renders de Home index view.                                           |
+| GET    | `/api/business/categories/:category` | Returns business list for the selected category                                          |
+| GET    | `/api/business/:businessid`          | Returns specific business by id                                                          |
+| GET    | `/api/user/profile`                  | Private route.Get the business profile of the current user (via JWT)                     |
+| PUT    | `/api/user/profile`                  | Private route. Updates the existing business info from the current user in the DB.       |
+| DELETE | `/api/user/profile`                  | Private route. Deletes the profile from the server and updates DB.                       |
+| POST   | `/api/business`                      | Private route. Sends Business info to the server and creates business in the DB.         |
+| PUT    | `/api/business/businessId`           | Private route. Updates one specific business from the current user in the DB.            |
+| DELETE | `/api/business/:businessId`          | Private route. Deletes one specific business from the server and updates DB.             |
 
 ## Running the tests ⚙️
 
-**
+\*\*
 
 ### Break down into end to end tests 🔩
 
@@ -141,9 +139,9 @@ name: {
 - Express.js
 - MongoDB
 
-## Backlog 
+## Backlog
 
-- 
+-
 
 ## Author ✒️
 
