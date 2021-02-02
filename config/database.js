@@ -13,6 +13,7 @@ mongoose
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((x) => {
     console.log(
@@ -28,6 +29,7 @@ const connectAndDrop = async () => {
       keepAlive: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then((x) => {
       console.log(
