@@ -41,9 +41,9 @@ authRouter.post("/login", async (req, res, next) => {
          Finally, send back the token to the user.
          */
         const token = jwt.sign({ user: body }, "TOP_SECRET", {
-          expiresIn: "1h",
+          expiresIn: 2629800,
         });
-
+        
         return res.json({ token });
       });
     } catch (error) {

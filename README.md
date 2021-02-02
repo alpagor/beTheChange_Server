@@ -114,7 +114,7 @@ name: {
 | POST   | `/auth/login`                        | Sends Login form data to the server.                                                     |
 | POST   | `/auth/logout`                       | Logs out the user. Renders de Home index view.                                           |
 | GET    | `/api/business/categories/:category` | Returns business list for the selected category                                          |
-| GET    | `/api/business/:businessid`          | Returns specific business by id                                                          |
+| GET    | `/api/business/:businessid`          | Privateroute. Returns specific business by id                                            |
 | GET    | `/api/user/profile`                  | Private route.Get the business profile of the current user (via JWT)                     |
 | PUT    | `/api/user/profile`                  | Private route. Updates the existing business info from the current user in the DB.       |
 | DELETE | `/api/user/profile`                  | Private route. Deletes the profile from the server and updates DB.                       |

@@ -2,16 +2,6 @@ const express = require("express");
 const businessRouter = express.Router();
 const Business = require("../../models/business-model");
 
-// // GET  "/business/" show all businesses
-// businessRouter.get("/", async (req, res) => {
-//   try {
-//     const businesses = await Business.find();
-//     res.send(businesses).status(200);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
 
 
 // Show business list for the selected category
