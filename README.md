@@ -119,7 +119,7 @@ name: {
 | PUT    | `/api/user/profile`                  | Private route. Updates the existing business info from the current user in the DB.       |
 | DELETE | `/api/user/profile`                  | Private route. Deletes the profile from the server and updates DB.                       |
 | POST   | `/api/business`                      | Private route. Sends Business info to the server and creates business in the DB.         |
-| PUT    | `/api/business/businessId`           | Private route. Updates one specific business from the current user in the DB.            |
+| PUT    | `/api/business/:businessId`          | Private route. Updates one specific business from the current user in the DB.            |
 | DELETE | `/api/business/:businessId`          | Private route. Deletes one specific business from the server and updates DB.             |
 
 ## Running the tests ⚙️

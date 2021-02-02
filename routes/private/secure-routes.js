@@ -51,6 +51,18 @@ profileRouter.post("/profile/newBusiness", async (req, res) => {
 });
 
 
+// GET specific business document by ID
+profileRouter.get("/profile/:businessId", async (req, res) => {
+  const { businessId } = req.params;
+
+  try {
+    const business = await Business.findById(businessId);
+    res.json(business).status(200);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // EDIT business
 profileRouter.put("/profile/:businessId", async (req, res) => {
   try {
@@ -89,6 +101,7 @@ profileRouter.put("/profile/:businessId", async (req, res) => {
   }
 });
 
+
 // DELETE business
 profileRouter.delete("/profile/:businessId", async (req, res) =>{
   try{
@@ -101,5 +114,7 @@ profileRouter.delete("/profile/:businessId", async (req, res) =>{
     res.status(500).json(err);
   }
 })
+
+
 
 module.exports = profileRouter;

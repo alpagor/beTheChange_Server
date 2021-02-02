@@ -12,16 +12,7 @@ const Business = require("../../models/business-model");
 //   }
 // });
 
-// // GET  "/business/" show 1 business document
-// businessRouter.get("/:id", async (req, res) => {
-//   const id = req.params.id;
-//   try {
-//     const singleBusiness = await Business.findById(id);
-//     res.send(singleBusiness).status(200);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+
 
 // Show business list for the selected category
 businessRouter.get("/categories/:category", async (req, res, next) => {
