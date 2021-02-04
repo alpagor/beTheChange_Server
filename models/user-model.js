@@ -30,6 +30,20 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
+
+
+
+UserSchema.pre("findOneAndUpdate", function (next) {
+  const modifiedField = this.getUpdate().$set.password;
+  if(modifiedField)
+  this.update(
+    {},
+    { $set: { password: bcrypt.hashSync(this.getUpdate().$set.password, 10) } }
+  );
+  next();
+});
+
+
 // We'll also need to make sure that the user trying to log in has the correct credentials.
 // assign a function to the "methods" object of our UserSchema
 UserSchema.methods.isValidPassword = async function (password) {
@@ -42,3 +56,5 @@ UserSchema.methods.isValidPassword = async function (password) {
 };
 
 module.exports = mongoose.model("User", UserSchema);
+
+

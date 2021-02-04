@@ -1,7 +1,8 @@
 const express = require("express");
 const profileRouter = express.Router();
 const Business = require("../../models/business-model");
-const User = require("../../models/user-model")
+const User = require("../../models/user-model");
+const bcrypt = require("bcrypt");
 
 // only users with verified tokens can acess this route
 profileRouter.get("/profile", (req, res, next) => {
@@ -21,8 +22,9 @@ profileRouter.put("/profile/:userId", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const { userId } = req.params;
+    console.log("BODY :>> ", req.body);
 
+    const { userId } = req.params;
 
     console.log("userId :>> ", userId);
 
