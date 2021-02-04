@@ -108,19 +108,19 @@ name: {
 
 ### Endpoints (backend routes)
 
-| Method | Route                                | Description                                                                              |
-| ------ | ------------------------------------ | :--------------------------------------------------------------------------------------- |
+| Method | Route                                | Description                                                  |
+| ------ | ------------------------------------ | :----------------------------------------------------------- |
 | POST   | `/auth/signup`                       | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
-| POST   | `/auth/login`                        | Sends Login form data to the server.                                                     |
-| POST   | `/auth/logout`                       | Logs out the user. Renders de Home index view.                                           |
-| GET    | `/api/business/categories/:category` | Returns business list for the selected category                                          |
-| GET    | `/api/business/:businessid`          | Privateroute. Returns specific business by id                                            |
-| GET    | `/api/user/profile`                  | Private route.Get the business profile of the current user (via JWT)                     |
-| PUT    | `/api/user/profile`                  | Private route. Updates the existing business info from the current user in the DB.       |
-| DELETE | `/api/user/profile`                  | Private route. Deletes the profile from the server and updates DB.                       |
-| POST   | `/api/business`                      | Private route. Sends Business info to the server and creates business in the DB.         |
-| PUT    | `/api/business/:businessId`          | Private route. Updates one specific business from the current user in the DB.            |
-| DELETE | `/api/business/:businessId`          | Private route. Deletes one specific business from the server and updates DB.             |
+| POST   | `/auth/login`                        | Sends Login form data to the server.                         |
+| POST   | `/auth/logout`                       | Logs out the user. Renders de Home index view.               |
+| GET    | `/api/business/categories/:category` | Returns business list for the selected category              |
+| GET    | `/user/profile/:businessid`          | Private route. Returns specific business by id               |
+| GET    | `/user/profile/:userId`              | Private route.Get the business profile of the current user (via JWT) |
+| PUT    | `/user/profile/:userId`              | Private route. Updates email and password info from the current user in the DB. |
+| DELETE | `/user/profile`                      | Private route. Deletes the profile from the server and updates DB. |
+| POST   | `user/profile/newBusiness`           | Private route. Sends Business info to the server and creates business in the DB. |
+| PUT    | `user/profile/:businessId`           | Private route. Updates one specific business from the current user in the DB. |
+| DELETE | `user/profile/:businessId`           | Private route. Deletes one specific business from the server and updates DB. |
 
 ## Running the tests ⚙️
 

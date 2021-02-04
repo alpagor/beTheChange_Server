@@ -34,8 +34,8 @@ UserSchema.pre("save", async function (next) {
 
 
 UserSchema.pre("findOneAndUpdate", function (next) {
-  const modifiedField = this.getUpdate().$set.password;
-  if(modifiedField)
+  const modifiedPassword = this.getUpdate().$set.password;
+  if(modifiedPassword)
   this.update(
     {},
     { $set: { password: bcrypt.hashSync(this.getUpdate().$set.password, 10) } }

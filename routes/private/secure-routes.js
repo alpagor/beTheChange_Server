@@ -45,6 +45,19 @@ profileRouter.put("/profile/:userId", async (req, res) => {
   }
 });
 
+// DELETE user
+profileRouter.delete("/profile/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const deletedUser = await User.findByIdAndRemove(userId);
+
+    res.json(deletedUser).status(200);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Sends Business info to the server and creates business in the DB.
 profileRouter.post("/profile/newBusiness", async (req, res) => {
   try {
