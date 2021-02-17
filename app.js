@@ -4,8 +4,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const passport = require("passport");
 
-const indexRouter = require("./routes/index-router");
-const usersRouter = require("./routes/users");
+
 const businessRouter = require("./routes/api/businessRouter");
 const authRouter = require("./routes/auth/auth-router");
 const profileRouter = require("./routes/private/secure-routes");

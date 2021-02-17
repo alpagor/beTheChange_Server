@@ -6,11 +6,12 @@ const bcrypt = require("bcrypt");
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password required"],
+    minlength: [8, "Password length must be more than 8 characters"],
   },
 });
 
@@ -30,19 +31,17 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-
-
-
 UserSchema.pre("findOneAndUpdate", function (next) {
   const modifiedPassword = this.getUpdate().$set.password;
-  if(modifiedPassword)
-  this.update(
-    {},
-    { $set: { password: bcrypt.hashSync(this.getUpdate().$set.password, 10) } }
-  );
+  if (modifiedPassword)
+    this.update(
+      {},
+      {
+        $set: { password: bcrypt.hashSync(this.getUpdate().$set.password, 10) },
+      }
+    );
   next();
 });
-
 
 // We'll also need to make sure that the user trying to log in has the correct credentials.
 // assign a function to the "methods" object of our UserSchema
@@ -56,5 +55,3 @@ UserSchema.methods.isValidPassword = async function (password) {
 };
 
 module.exports = mongoose.model("User", UserSchema);
-
-
