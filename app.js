@@ -17,7 +17,7 @@ const app = express();
 require("./config/database");
 // Must first load the models
 require("./models/user-model");
-require("./middlewares/auth");
+require("./helpers/auth");
 
 // MIDDLEWARES
 app.use(logger("dev"));

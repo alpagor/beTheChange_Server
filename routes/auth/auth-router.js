@@ -1,23 +1,15 @@
 const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const { body, validatonResult } = require('express-validator');
-const { isValid } = require('../../middlewares/validationResult')
+const { bodyValidation, isValid } = require("../../helpers/validationResult");
 const authRouter = express.Router();
-
-const signupValidation = [
-  body("email", "email is empty").trim().exists().isEmail(),
-  body("password", "Invalid password")
-    .trim()
-    .exists()
-    .isLength({ min: 8 })
-    .escape(),
-];
 
 // handling POST request for signup
 // When the user sends a POST request to this route, Passport authenticates the user based on the middleware auth.js
 authRouter.post(
-  "/signup", signupValidation, isValid,
+  "/signup",
+  bodyValidation,
+  isValid,
   passport.authenticate("signup", { session: false }),
   // We set { session: false } because we do not want to store the user details in a session
   async (req, res, next) => {
@@ -29,16 +21,14 @@ authRouter.post(
   }
 );
 
-
-
 // handling POST request for login:
-authRouter.post("/login", async (req, res, next) => {
+authRouter.post("/login", bodyValidation, isValid, async (req, res, next) => {
   passport.authenticate("login", async (err, user) => {
     try {
       if (err || !user) {
-        const error = new Error("An error occurred.");
-
-        return next(error);
+        const error = new Error("Could not parse input, check email and/or password.");
+        error.name = "ParseError";
+        return next(error.toString());
       }
       /**
        * We set { session: false } because we do not want to store the user details in a session.
@@ -55,7 +45,7 @@ authRouter.post("/login", async (req, res, next) => {
         const token = jwt.sign({ user: body }, "TOP_SECRET", {
           expiresIn: 2629800,
         });
-        
+
         return res.json({ token });
       });
     } catch (error) {
