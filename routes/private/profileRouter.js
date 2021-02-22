@@ -2,8 +2,14 @@ const express = require("express");
 const profileRouter = express.Router();
 const Business = require("../../models/business-model");
 const User = require("../../models/user-model");
-const { apiGetAllBusiness, apiUpdateUser, apiDeleteUser, apiCreateBusiness, apiGetBusinessById } = require("../../controllers/business.controller");
-
+const {
+  apiGetAllBusiness,
+  apiUpdateUser,
+  apiDeleteUser,
+  apiCreateBusiness,
+  apiGetBusinessById,
+  apiUpdateBusiness,
+} = require("../../controllers/business.controller");
 
 // only users with verified tokens can acess this route
 profileRouter.get("/profile", (req, res, next) => {
@@ -19,57 +25,21 @@ profileRouter.get("/profile", (req, res, next) => {
 // with this response.
 profileRouter.get("/profile/business", apiGetAllBusiness);
 
-
 // EDIT user
 profileRouter.put("/profile", apiUpdateUser);
-
 
 // DELETE user
 profileRouter.delete("/profile/:userId/delete", apiDeleteUser);
 
-
 // Sends Business info to the server and creates business in the DB.
-profileRouter.post("/profile/newBusiness", apiCreateBusiness );
+// NO HACE PUSH PORQUÉ!!
+profileRouter.post("/profile/newBusiness", apiCreateBusiness);
 
 // GET specific business document by ID
-
-profileRouter.get("/profile/:businessId", apiGetBusinessById);
+profileRouter.get("/profile/:_id", apiGetBusinessById);
 
 // EDIT business
-profileRouter.put("/profile/:businessId", async (req, res) => {
-  try {
-    const {
-      name,
-      location,
-      url,
-      img,
-      description,
-      certifications,
-      shipping,
-      categories,
-      tags,
-    } = req.body;
-
-    const { businessId } = req.params;
-
-    console.log("businessId :>> ", businessId);
-
-    // $set will allow me to modify only the supplied fields in the req.body object.
-    const updateBusiness = await Business.findByIdAndUpdate(
-      businessId,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-
-    console.log(updateBusiness);
-
-    res.json(updateBusiness).status(200);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+profileRouter.put("/profile/:businessId", apiUpdateBusiness);
 
 // DELETE business
 profileRouter.delete("/profile/:businessId", async (req, res) => {

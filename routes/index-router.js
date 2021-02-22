@@ -140,3 +140,40 @@ profileRouter.post("/profile/newBusiness", async (req, res, next) => {
     res.status(500).json(err);
   }
 });
+
+
+// EDIT business
+profileRouter.put("/profile/:businessId", async (req, res) => {
+  try {
+    const {
+      name,
+      location,
+      url,
+      img,
+      description,
+      certifications,
+      shipping,
+      categories,
+      tags,
+    } = req.body;
+
+    const { businessId } = req.params;
+
+    console.log("businessId :>> ", businessId);
+
+    // $set will allow me to modify only the supplied fields in the req.body object.
+    const updateBusiness = await Business.findByIdAndUpdate(
+      businessId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    console.log(updateBusiness);
+
+    res.json(updateBusiness).status(200);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});

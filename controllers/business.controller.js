@@ -4,6 +4,7 @@ const {
   deleteUser,
   getBusinessById,
   createBusiness,
+  updateBusiness,
 } = require("../services/businessService");
 
 module.exports = {
@@ -34,6 +35,7 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+  
   apiDeleteUser: async (req, res, next) => {
     try {
       const { _id } = req.user;
@@ -60,18 +62,21 @@ module.exports = {
         tags,
       } = req.body;
 
-      console.log("BUSINESS:>>>>> ", req.body)
+      // console.log("BUSINESS:>>>>> ", req.body)
 
       const { _id } = req.user;
-      console.log("BUSINESS:>>>>> ", req.user)
-      
+      // console.log("USER_ID:>>>>> ", req.user)
+
       const options = { new: true };
 
-      const {business, user} = await createBusiness(req.body, {new:true});
+      // const {business, user} = await createBusiness(req.body, {new:true});
+      const newBusiness = await createBusiness(req.body, req.user, {
+        new: true,
+      });
 
-      res.json({business, user});
+      console.log("NEW_BUSINESS:>>>>> ", newBusiness);
 
-
+      res.json(newBusiness);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -79,8 +84,8 @@ module.exports = {
 
   apiGetBusinessById: async (req, res, next) => {
     try {
-      const { businessId } = req.params;
-      console.log("BUSINESS_ID:>>>>> ", businessId);
+      const {_id}  = req.params;
+      console.log("BUSINESS_ID:>>>>> ", req.params);
 
       const business = await getBusinessById(req.params);
 
@@ -91,5 +96,41 @@ module.exports = {
     } catch (error) {
       res.status(500).json(error);
     }
+  },
+
+  apiUpdateBusiness: async (req, res, next) => {
+    try {
+
+      const {
+        businessId,
+        name,
+        location,
+        url,
+        img,
+        description,
+        certifications,
+        shipping,
+        categories,
+        tags,
+      } = req.body;
+
+      const { _id } = req.user;
+      const businessToUpdate = req.params;
+
+      const updatedBusiness = await updateBusiness(businessId, {_id,name,
+        location,
+        url,
+        img,
+        description,
+        certifications,
+        shipping,
+        categories,
+        tags}, {new:true});
+
+      if (!updatedBusiness) {
+        res.status(404).json("Unable to update user");
+      }
+      res.json(updatedBusiness).status(200);
+    } catch (error) {}
   },
 };

@@ -34,11 +34,14 @@ module.exports = {
     }
   },
 
-  createBusiness: async (docs, id, update, options) => {
+  createBusiness: async (docs, id, options) => {
     try {
         const businessDoc = await Business.create(docs);
-        const userBusinesses = await User.findOneAndUpdate(id, {$push: businessDoc}, options)
-        return {business: businessDoc, user: userBusinesses}
+        console.log("BUSINESS_DOC:>>>>> ", businessDoc)
+        console.log("id:>>>>> ", id)
+        const userBusinesses = await User.findOneAndUpdate(id, { $set: { $push:{ businesses:businessDoc } } }, options)
+        console.log("userBusinesses:>>>>> ", userBusinesses)
+        return {user:userBusinesses}; 
     } catch(error) {
         console.log(`Could not create business ${error}`);
     }
@@ -50,6 +53,20 @@ module.exports = {
         return singleBusiness;
     } catch (error) {
         console.log(`Could not fetch business ${error}`);
+    }
+  },
+
+  updateBusiness: async (id, update, options) => {
+    try {
+      const updatedBusiness = await User.findByIdAndUpdate(
+        id,
+        { $set: update },
+        options
+      );
+
+      return updatedBusiness;
+    } catch (error) {
+      console.log(`Could not update user ${error}`);
     }
   },
 };
