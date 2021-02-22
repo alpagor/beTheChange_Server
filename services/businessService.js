@@ -58,7 +58,7 @@ module.exports = {
 
   updateBusiness: async (id, update, options) => {
     try {
-      const updatedBusiness = await User.findByIdAndUpdate(
+      const updatedBusiness = await Business.findByIdAndUpdate(
         id,
         { $set: update },
         options
@@ -67,6 +67,16 @@ module.exports = {
       return updatedBusiness;
     } catch (error) {
       console.log(`Could not update user ${error}`);
+    }
+  },
+
+  deleteBusiness: async (id) => {
+    try {
+      const deletedBusiness = await Business.findByIdAndRemove(id);
+      console.log("BUSINESS_TO_DELETE:>>>>> ", deletedBusiness)
+      return deletedBusiness;
+    } catch (error) {
+      console.log(`Could not delete user ${error}`);
     }
   },
 };

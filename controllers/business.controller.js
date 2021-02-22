@@ -5,6 +5,7 @@ const {
   getBusinessById,
   createBusiness,
   updateBusiness,
+  deleteBusiness
 } = require("../services/businessService");
 
 module.exports = {
@@ -87,7 +88,7 @@ module.exports = {
       const {_id}  = req.params;
       console.log("BUSINESS_ID:>>>>> ", req.params);
 
-      const business = await getBusinessById(req.params);
+      const business = await getBusinessById({_id});
 
       if (!business) {
         res.status(404).json("no business created yet");
@@ -102,7 +103,6 @@ module.exports = {
     try {
 
       const {
-        businessId,
         name,
         location,
         url,
@@ -113,24 +113,31 @@ module.exports = {
         categories,
         tags,
       } = req.body;
+      const { _id } = req.params;
+      const options = { new: true };
+      console.log("BUSINESS_ID:>>>>> ", req.params)
+      console.log("BUSINESS_CHANGE_FIELDS:>>>>> ", req.body)
 
-      const { _id } = req.user;
-      const businessToUpdate = req.params;
-
-      const updatedBusiness = await updateBusiness(businessId, {_id,name,
-        location,
-        url,
-        img,
-        description,
-        certifications,
-        shipping,
-        categories,
-        tags}, {new:true});
+      const updatedBusiness = await updateBusiness(req.params, req.body, { new:true });
 
       if (!updatedBusiness) {
         res.status(404).json("Unable to update user");
       }
+
       res.json(updatedBusiness).status(200);
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  apiDeleteBusiness: async (req, res, next) => {
+    try {
+      const { _id } = req.params;
+      console.log("BUSINESS_ID:>>>>> ", req.params)
+      await deleteBusiness(req.params);
+
+      res.json({ message: "business deleted" }).status(200);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   },
 };

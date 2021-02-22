@@ -177,3 +177,16 @@ profileRouter.put("/profile/:businessId", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// DELETE business
+profileRouter.delete("/profile/:businessId", async (req, res) => {
+  try {
+    const { businessId } = req.params;
+
+    const deletedBusiness = await Business.findByIdAndRemove(businessId);
+
+    res.json(deletedBusiness).status(200);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});

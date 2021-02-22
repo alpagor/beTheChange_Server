@@ -1,7 +1,6 @@
 const express = require("express");
 const profileRouter = express.Router();
-const Business = require("../../models/business-model");
-const User = require("../../models/user-model");
+
 const {
   apiGetAllBusiness,
   apiUpdateUser,
@@ -9,6 +8,7 @@ const {
   apiCreateBusiness,
   apiGetBusinessById,
   apiUpdateBusiness,
+  apiDeleteBusiness
 } = require("../../controllers/business.controller");
 
 // only users with verified tokens can acess this route
@@ -36,22 +36,12 @@ profileRouter.delete("/profile/:userId/delete", apiDeleteUser);
 profileRouter.post("/profile/newBusiness", apiCreateBusiness);
 
 // GET specific business document by ID
-profileRouter.get("/profile/:_id", apiGetBusinessById);
+profileRouter.get("/profile/business/:_id", apiGetBusinessById);
 
 // EDIT business
-profileRouter.put("/profile/:businessId", apiUpdateBusiness);
+profileRouter.put("/profile/business/:_id/update", apiUpdateBusiness);
 
 // DELETE business
-profileRouter.delete("/profile/:businessId", async (req, res) => {
-  try {
-    const { businessId } = req.params;
-
-    const deletedBusiness = await Business.findByIdAndRemove(businessId);
-
-    res.json(deletedBusiness).status(200);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+profileRouter.delete("/profile/business/:_id/delete", apiDeleteBusiness);
 
 module.exports = profileRouter;
