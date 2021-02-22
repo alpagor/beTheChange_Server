@@ -1,6 +1,7 @@
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const User = require("../models/user-model");
+const Business = require("../models/business-model");
 
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
@@ -8,6 +9,7 @@ const ExtractJWT = require("passport-jwt").ExtractJwt;
 const authFields = {
   usernameField: "email",
   passwordField: "password",
+  passReqToCallback: true,
 };
 
 passport.use(
@@ -15,7 +17,22 @@ passport.use(
   new localStrategy(
     authFields,
     // verify callback
-    async (email, password, done) => {
+    async (req, email, password, done) => {
+
+      const {
+        name,
+        location,
+        url,
+        img,
+        description,
+        certifications,
+        shipping,
+        categories,
+        tags,
+      } = req.body.business;
+
+      console.log("BUSINESS_BODY:>>>>> ", req.body.business);
+      
       try {
         const user = await User.findOne({ email });
         if (user) {
@@ -23,8 +40,17 @@ passport.use(
             message: "Email already registered, log in instead.",
           });
         }
-        //aqui va la validation y la sanittization?
-        const newUser = await User.create({ email, password });
+        
+        const business = await Business.create(req.body.business);
+
+        console.log("BUSINESS_ID:>>>>> ", business._id)
+
+        const newUser = await User.create({ email, password, businesses:business });
+
+        console.log("newUser:>>>>> ",newUser)
+
+
+        
         // the verify callback invokes 'done' to supply Passport with the user that authenticated.
         console.log("User Registration succesful");
         return done(null, newUser);

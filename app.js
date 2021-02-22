@@ -6,8 +6,8 @@ const passport = require("passport");
 
 
 const businessRouter = require("./routes/api/businessRouter");
-const authRouter = require("./routes/auth/auth-router");
-const profileRouter = require("./routes/private/secure-routes");
+const authRouter = require("./routes/auth/authRouter");
+const profileRouter = require("./routes/private/profileRouter");
 
 // We create our own server named app
 // Express server handling requests and responses

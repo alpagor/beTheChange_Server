@@ -13,6 +13,7 @@ authRouter.post(
   passport.authenticate("signup", { session: false }),
   // We set { session: false } because we do not want to store the user details in a session
   async (req, res, next) => {
+    console.log("REQ_USER:>>>>>>", req.user)
     // If this function gets called, authentication was successful.
     res.json({
       message: "Signup successful",
@@ -26,7 +27,7 @@ authRouter.post("/login", bodyValidation, isValid, async (req, res, next) => {
   passport.authenticate("login", async (err, user) => {
     try {
       if (err || !user) {
-        const error = new Error("Could not parse input, check email and/or password.");
+        const error = new Error("Username or password incorrect");
         error.name = "ParseError";
         return next(error.toString());
       }

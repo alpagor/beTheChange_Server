@@ -2,7 +2,8 @@ const express = require("express");
 const profileRouter = express.Router();
 const Business = require("../../models/business-model");
 const User = require("../../models/user-model");
-const bcrypt = require("bcrypt");
+const { apiGetAllBusiness, apiUpdateUser, apiDeleteUser, apiCreateBusiness, apiGetBusinessById } = require("../../controllers/business.controller");
+
 
 // only users with verified tokens can acess this route
 profileRouter.get("/profile", (req, res, next) => {
@@ -16,97 +17,23 @@ profileRouter.get("/profile", (req, res, next) => {
 // this code handles a GET request for 'profile'. It returns a
 // message and information about user and token. Only users with a verified token will be presented
 // with this response.
+profileRouter.get("/profile/business", apiGetAllBusiness);
+
 
 // EDIT user
-profileRouter.put("/profile/:userId", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+profileRouter.put("/profile", apiUpdateUser);
 
-    console.log("BODY :>> ", req.body);
-
-    const { userId } = req.params;
-
-    console.log("userId :>> ", userId);
-
-    // $set will allow me to modify only the supplied fields in the req.body object.
-    const updateUser = await User.findByIdAndUpdate(
-      userId,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-
-    console.log(updateUser);
-
-    res.json(updateUser).status(200);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 // DELETE user
-profileRouter.delete("/profile/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
+profileRouter.delete("/profile/:userId/delete", apiDeleteUser);
 
-    const deletedUser = await User.findByIdAndRemove(userId);
-
-    res.json(deletedUser).status(200);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 // Sends Business info to the server and creates business in the DB.
-profileRouter.post("/profile/newBusiness", async (req, res) => {
-  try {
-    const {
-      name,
-      location,
-      url,
-      img,
-      description,
-      certifications,
-      shipping,
-      categories,
-      tags,
-    } = req.body;
-
-    const newBusiness = await Business.create({
-      name,
-      location,
-      url,
-      img,
-      description,
-      certifications,
-      shipping,
-      categories,
-      tags,
-    });
-
-    console.log(newBusiness);
-
-    res.json(newBusiness).status(200);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+profileRouter.post("/profile/newBusiness", apiCreateBusiness );
 
 // GET specific business document by ID
-profileRouter.get("/profile/:businessId", async (req, res) => {
-  const { businessId } = req.params;
 
-  try {
-    const business = await Business.findById(businessId);
-
-    console.log(business);
-
-    res.json(business).status(200);
-  } catch (error) {
-    console.log(error);
-  }
-});
+profileRouter.get("/profile/:businessId", apiGetBusinessById);
 
 // EDIT business
 profileRouter.put("/profile/:businessId", async (req, res) => {

@@ -13,6 +13,7 @@ const UserSchema = new Schema({
     required: [true, "Password required"],
     minlength: [8, "Password length must be more than 8 characters"],
   },
+  businesses: [{ type: Schema.Types.ObjectId, ref: "Business", required: true }],
 });
 
 /*
