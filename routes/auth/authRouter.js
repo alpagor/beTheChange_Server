@@ -13,7 +13,6 @@ authRouter.post(
   passport.authenticate("signup", { session: false }),
   // We set { session: false } because we do not want to store the user details in a session
   async (req, res, next) => {
-    console.log("REQ_USER:>>>>>>", req.user)
     // If this function gets called, authentication was successful.
     res.json({
       message: "Signup successful",

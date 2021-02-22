@@ -43,14 +43,7 @@ passport.use(
         
         const business = await Business.create(req.body.business);
 
-        console.log("BUSINESS_ID:>>>>> ", business._id)
-
         const newUser = await User.create({ email, password, businesses:business });
-
-        console.log("newUser:>>>>> ",newUser)
-
-
-        
         // the verify callback invokes 'done' to supply Passport with the user that authenticated.
         console.log("User Registration succesful");
         return done(null, newUser);
@@ -63,7 +56,7 @@ passport.use(
 
 passport.use(
   "login",
-  new localStrategy(authFields, async (email, password, done) => {
+  new localStrategy(authFields, async (req, email, password, done) => {
     try {
       const user = await User.findOne({ email });
 
