@@ -50,7 +50,6 @@ module.exports = {
       };
       const response = await new Business(newBusiness).save();
       return response;
-      // await User.updateOne({_id: userId},{ $push: { businesses:newBusiness } });
     } catch (error) {
       console.log(`Could not create business ${error}`);
     }

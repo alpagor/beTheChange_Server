@@ -5,7 +5,7 @@ const logger = require("morgan");
 const passport = require("passport");
 
 
-const businessRouter = require("./routes/api/businessRouter");
+const apiRouter = require("./routes/api/apiRouter");
 const authRouter = require("./routes/auth/authRouter");
 const profileRouter = require("./routes/private/profileRouter");
 
@@ -28,10 +28,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // MIDDLEWARES ROUTES
-// app.use("/", indexRouter); // load the router on '/'
+
 app.use("/auth", authRouter);
-// app.use("/users", usersRouter);
-app.use("/business", businessRouter);
+
+app.use("/", apiRouter);
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
 app.use(
   "/owner",

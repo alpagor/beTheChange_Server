@@ -69,12 +69,6 @@ module.exports = {
 
       const userId = req.user._id;
 
-      // const options = { new: true };
-
-      // const {business, user} = await createBusiness(req.body, {new:true});
-      // const newBusiness = await createBusiness(req.body, req.user, {
-      //   new: true,
-      // });
       const newBusiness = await createBusiness(req.body, userId);
 
       res.json(newBusiness);
