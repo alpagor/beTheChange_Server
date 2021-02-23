@@ -34,25 +34,49 @@ module.exports = {
     }
   },
 
-  createBusiness: async (docs, id, options) => {
+  // createBusiness: async (docs, id, options) => {
+  //   try {
+  //     const businessDoc = await Business.create(docs);
+
+  //     const userBusinesses = await User.findOneAndUpdate(
+  //       id,
+  //       { $set: { $push: { businesses: businessDoc } } },
+  //       options
+  //     );
+
+  //     return { user: userBusinesses };
+  //   } catch (error) {
+  //     console.log(`Could not create business ${error}`);
+  //   }
+  // },
+  createBusiness: async (data, userId) => {
     try {
-        const businessDoc = await Business.create(docs);
-        console.log("BUSINESS_DOC:>>>>> ", businessDoc)
-        console.log("id:>>>>> ", id)
-        const userBusinesses = await User.findOneAndUpdate(id, { $set: { $push:{ businesses:businessDoc } } }, options)
-        console.log("userBusinesses:>>>>> ", userBusinesses)
-        return {user:userBusinesses}; 
-    } catch(error) {
-        console.log(`Could not create business ${error}`);
+      const newBusiness = {
+        name: data.name,
+        location: data.location,
+        url: data.url,
+        img: data.img,
+        description: data.description,
+        certifications: data.certifications,
+        shipping: data.shipping,
+        categories: data.categories,
+        tags: data.tags,
+        owner: userId,
+      };
+      const response = await new Business(newBusiness).save();
+      return response;
+      // await User.updateOne({_id: userId},{ $push: { businesses:newBusiness } });
+    } catch (error) {
+      console.log(`Could not create business ${error}`);
     }
   },
 
   getBusinessById: async (id) => {
     try {
-        const singleBusiness = await Business.findById(id);
-        return singleBusiness;
+      const singleBusiness = await Business.findById(id);
+      return singleBusiness;
     } catch (error) {
-        console.log(`Could not fetch business ${error}`);
+      console.log(`Could not fetch business ${error}`);
     }
   },
 
@@ -70,19 +94,13 @@ module.exports = {
     }
   },
 
-  deleteBusiness: async (_id,id,options) => {
-    
-
+  deleteBusiness: async (_id) => {
     try {
       const deletedBusiness = await Business.findByIdAndDelete(_id);
-      console.log("BUSINESS_TO_DELETE:>>>>> ", deletedBusiness)
-      const updateBusinessArray = await User.findByIdAndUpdate(id, { $set:{ $pull:{ businesses:deletedBusiness }} }, options)
-      console.log("BUSINESS_upDatEd:>>>>> ", updateBusinessArray)
-      
-      
-      return {user:updateBusinessArray};
+
+      return deletedBusiness;
     } catch (error) {
-      console.log(`Could not delete user ${error}`);
+      console.log(`Could not delete business ${error}`);
     }
   },
 };

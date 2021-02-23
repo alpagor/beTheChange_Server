@@ -5,7 +5,7 @@ const {
   getBusinessById,
   createBusiness,
   updateBusiness,
-  deleteBusiness
+  deleteBusiness,
 } = require("../services/businessService");
 
 module.exports = {
@@ -36,7 +36,7 @@ module.exports = {
       res.status(500).json(error);
     }
   },
-  
+
   apiDeleteUser: async (req, res, next) => {
     try {
       const { _id } = req.user;
@@ -61,21 +61,18 @@ module.exports = {
         shipping,
         categories,
         tags,
+        owner
       } = req.body;
 
-      // console.log("BUSINESS:>>>>> ", req.body)
+      const userId = req.user._id;
 
-      const { _id } = req.user;
-      // console.log("USER_ID:>>>>> ", req.user)
-
-      const options = { new: true };
+      // const options = { new: true };
 
       // const {business, user} = await createBusiness(req.body, {new:true});
-      const newBusiness = await createBusiness(req.body, req.user, {
-        new: true,
-      });
-
-      console.log("NEW_BUSINESS:>>>>> ", newBusiness);
+      // const newBusiness = await createBusiness(req.body, req.user, {
+      //   new: true,
+      // });
+      const newBusiness = await createBusiness(req.body,userId);
 
       res.json(newBusiness);
     } catch (error) {
@@ -85,10 +82,9 @@ module.exports = {
 
   apiGetBusinessById: async (req, res, next) => {
     try {
-      const {_id}  = req.params;
-      console.log("BUSINESS_ID:>>>>> ", req.params);
+      const { _id } = req.params;
 
-      const business = await getBusinessById({_id});
+      const business = await getBusinessById({ _id });
 
       if (!business) {
         res.status(404).json("no business created yet");
@@ -101,7 +97,6 @@ module.exports = {
 
   apiUpdateBusiness: async (req, res, next) => {
     try {
-
       const {
         name,
         location,
@@ -115,10 +110,10 @@ module.exports = {
       } = req.body;
       const { _id } = req.params;
       const options = { new: true };
-      console.log("BUSINESS_ID:>>>>> ", req.params)
-      console.log("BUSINESS_CHANGE_FIELDS:>>>>> ", req.body)
 
-      const updatedBusiness = await updateBusiness(req.params, req.body, { new:true });
+      const updatedBusiness = await updateBusiness(req.params, req.body, {
+        new: true,
+      });
 
       if (!updatedBusiness) {
         res.status(404).json("Unable to update user");
@@ -132,11 +127,9 @@ module.exports = {
   apiDeleteBusiness: async (req, res, next) => {
     try {
       const { _id } = req.params;
-      console.log("BUSINESS_TO_DELETE_ID:>>>>> ", req.params)
-      const { userId } = req.user;
-      console.log("USER_ID:>>>>> ", req.user)
-      const deletedBusiness = await deleteBusiness(req.params, req.user, {new:true});
-      console.log("DELETED:>>>>> ", deletedBusiness)
+
+      const deletedBusiness = await deleteBusiness(req.params);
+
       res.json(deletedBusiness).status(200);
     } catch (error) {
       res.status(500).json(error);

@@ -30,8 +30,7 @@ passport.use(
         tags,
       } = req.body.business;
 
-      
-
+    
       try {
         const userExist = await User.findOne({ email });
         if (userExist) {
@@ -58,12 +57,12 @@ passport.use(
           owner: userId
         });
         await business.save();
-        await User.updateOne({_id: userId},{ $push: { businesses:business } });
-        const newUser = await User.findById(userId);
-        console.log("NEW_USER:>>>>> ", newUser)  
+        // await User.updateOne({_id: userId},{ $push: { businesses:business } });
+        // const newUser = await User.findById(userId);
+        // console.log("NEW_USER:>>>>> ", newUser)  
         // the verify callback invokes 'done' to supply Passport with the user that authenticated.
         console.log("User Registration succesful");
-        return done(null, newUser);
+        return done(null, user);
       } catch (error) {
         return done(error);
       }
