@@ -36,18 +36,20 @@ $ npm run start
 ```javascript
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
   },
   password: {
     type: String,
-    required: true,
-  }
+    required: [true, "Password required"],
+    minlength: [8, "Password length must be more than 8 characters"],
+  },
+  businesses: [{ type: Schema.Types.ObjectId, ref: "Business" }]
 ```
 
 - Business Model
 
 ```javascript
-name: {
+  name: {
     type: String,
     required: true,
   },
@@ -82,45 +84,50 @@ name: {
     required: true,
     default: undefined,
     enum: [
-      'Cosmetics',
-      'Bags',
-      'Accessories',
-      'Clothes',
-      'Basics',
-      'Shoes',
-      'Food'
-    ]
+      "Cosmetics",
+      "Bags",
+      "Accessories",
+      "Clothes",
+      "Basics",
+      "Shoes",
+      "Food",
+    ],
   },
   tags: {
     type: [String],
     required: true,
     default: undefined,
     enum: [
-      'eco',
-      'vegan',
-      'vegetarian',
-      'ethic',
-      'bio',
-      'circular economy'
-    ]
+      "eco",
+      "vegan",
+      "vegetarian",
+      "ethic",
+      "bio",
+      "circular economy",
+      "recycled",
+    ],
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   }
 ```
 
 ### Endpoints (backend routes)
 
-| Method | Route                                | Description                                                  |
-| ------ | ------------------------------------ | :----------------------------------------------------------- |
-| POST   | `/auth/signup`                       | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
-| POST   | `/auth/login`                        | Sends Login form data to the server.                         |
-| POST   | `/auth/logout`                       | Logs out the user. Renders de Home index view.               |
-| GET    | `/api/business/categories/:category` | Returns business list for the selected category              |
-| GET    | `/user/profile/:businessid`          | Private route. Returns specific business by id               |
-| GET    | `/user/profile/:userId`              | Private route.Get the business profile of the current user (via JWT) |
-| PUT    | `/user/profile/:userId`              | Private route. Updates email and password info from the current user in the DB. |
-| DELETE | `/user/profile`                      | Private route. Deletes the profile from the server and updates DB. |
-| POST   | `user/profile/newBusiness`           | Private route. Sends Business info to the server and creates business in the DB. |
-| PUT    | `user/profile/:businessId`           | Private route. Updates one specific business from the current user in the DB. |
-| DELETE | `user/profile/:businessId`           | Private route. Deletes one specific business from the server and updates DB. |
+| Method | Route                            | Description                                                  |
+| ------ | -------------------------------- | :----------------------------------------------------------- |
+| POST   | `/auth/signup`                   | Sends Sign Up info to the server and then create user in the DB with encrypted password. |
+| POST   | `/auth/login`                    | Sends Login form data to the server.                         |
+| POST   | `/auth/logout`                   | Logs out the user. Renders de Home index view.               |
+| GET    | `/business/categories/:category` | Returns business list for the selected category              |
+| GET    | `/owner/profile`                 | Private route.Get the business profile of the current user (via JWT) |
+| PUT    | `/owner/update`                  | Private route. Updates email and password info from the current user in the DB. |
+| DELETE | `/owner/delete`                  | Private route. Deletes the profile from the server and updates DB. |
+| POST   | `/owner/addBusiness`             | Private route. Sends Business info to the server and creates a new business in the DB for the current user. |
+| GET    | `/owner/business/:_id`           | Private route. Returns specific business by id               |
+| PUT    | `/owner/business/:_id/update`    | Private route. Updates one specific business from the current user in the DB. |
+| DELETE | `/owner/business/:_id/delete`    | Private route. Deletes one specific business from the server and updates DB. |
 
 ## Running the tests ⚙️
 
@@ -138,6 +145,7 @@ name: {
 - Node.js
 - Express.js
 - MongoDB
+- PassportJS
 
 ## Backlog
 

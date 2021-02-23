@@ -2,9 +2,9 @@ const Business = require("../models/business-model");
 const User = require("../models/user-model");
 
 module.exports = {
-  getAllBusiness: async () => {
+  getAllBusiness: async (path) => {
     try {
-      const allBusiness = await Business.find();
+      const allBusiness = await Business.find(path);
       return allBusiness;
     } catch (error) {
       console.log(`Could not fetch business ${error}`);
@@ -34,21 +34,6 @@ module.exports = {
     }
   },
 
-  // createBusiness: async (docs, id, options) => {
-  //   try {
-  //     const businessDoc = await Business.create(docs);
-
-  //     const userBusinesses = await User.findOneAndUpdate(
-  //       id,
-  //       { $set: { $push: { businesses: businessDoc } } },
-  //       options
-  //     );
-
-  //     return { user: userBusinesses };
-  //   } catch (error) {
-  //     console.log(`Could not create business ${error}`);
-  //   }
-  // },
   createBusiness: async (data, userId) => {
     try {
       const newBusiness = {

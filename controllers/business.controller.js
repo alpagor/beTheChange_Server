@@ -11,7 +11,9 @@ const {
 module.exports = {
   apiGetAllBusiness: async (req, res, next) => {
     try {
-      const businesses = await getAllBusiness();
+      const userId = req.user._id;
+      const owner = { owner: userId };
+      const businesses = await getAllBusiness(owner);
       if (!businesses) {
         res.status(404).json("no businesses created yet");
       }
@@ -20,6 +22,7 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+
   apiUpdateUser: async (req, res, next) => {
     try {
       const { email, password } = req.body;
@@ -29,7 +32,7 @@ module.exports = {
       const updatedUser = await updateUser(req.user, req.body, { new: true });
 
       if (!updatedUser) {
-        res.status(404).json("Unable to update user");
+        return res.status(404).json("Unable to update user");
       }
       res.json(updatedUser).status(200);
     } catch (error) {
@@ -61,7 +64,7 @@ module.exports = {
         shipping,
         categories,
         tags,
-        owner
+        owner,
       } = req.body;
 
       const userId = req.user._id;
@@ -72,7 +75,7 @@ module.exports = {
       // const newBusiness = await createBusiness(req.body, req.user, {
       //   new: true,
       // });
-      const newBusiness = await createBusiness(req.body,userId);
+      const newBusiness = await createBusiness(req.body, userId);
 
       res.json(newBusiness);
     } catch (error) {
@@ -116,7 +119,7 @@ module.exports = {
       });
 
       if (!updatedBusiness) {
-        res.status(404).json("Unable to update user");
+        return res.status(404).json("Unable to update user");
       }
 
       res.json(updatedBusiness).status(200);

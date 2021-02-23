@@ -11,38 +11,28 @@ const {
   apiDeleteBusiness,
 } = require("../../controllers/business.controller");
 
-// only users with verified tokens can acess this route
-profileRouter.get("/profile", (req, res, next) => {
-  res.json({
-    message: "You made it to the secure route",
-    user: req.user,
-    token: req.query.secret_token,
-  });
-});
 
-// this code handles a GET request for 'profile'. It returns a
-// message and information about user and token. Only users with a verified token will be presented
-// with this response.
-profileRouter.get("/profile/business", apiGetAllBusiness);
+// User HOME page showing all business he has created
+profileRouter.get("/profile", apiGetAllBusiness);
 
 // EDIT user
-profileRouter.put("/profile", apiUpdateUser);
+profileRouter.put("/update", apiUpdateUser);
 
 // DELETE user
-profileRouter.delete("/profile/:userId/delete", apiDeleteUser);
+profileRouter.delete("/delete", apiDeleteUser);
 
 // Sends Business info to the server and creates business in the DB.
-// NO HACE PUSH PORQUÉ!!
-profileRouter.post("/profile/newBusiness", apiCreateBusiness);
+profileRouter.post("/addBusiness", apiCreateBusiness);
 
 // GET specific business document by ID
-profileRouter.get("/profile/business/:_id", apiGetBusinessById);
+profileRouter.get("/business/:_id", apiGetBusinessById);
 
 // EDIT business
-profileRouter.put("/profile/business/:_id/update", apiUpdateBusiness);
+// need to be refactored, you need to change the full arrays if
+// you need to update an element of that array, you can't push or pull...
+profileRouter.put("/business/:_id/update", apiUpdateBusiness);
 
 // DELETE business
-// CANCELA EL BUSINESS PERO NO LO ELIMINA DEL ARRAY DEL USER PORQUÉ!!
-profileRouter.delete("/profile/business/:_id/delete", apiDeleteBusiness);
+profileRouter.delete("/business/:_id/delete", apiDeleteBusiness);
 
 module.exports = profileRouter;
