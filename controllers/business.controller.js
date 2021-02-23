@@ -132,10 +132,12 @@ module.exports = {
   apiDeleteBusiness: async (req, res, next) => {
     try {
       const { _id } = req.params;
-      console.log("BUSINESS_ID:>>>>> ", req.params)
-      await deleteBusiness(req.params);
-
-      res.json({ message: "business deleted" }).status(200);
+      console.log("BUSINESS_TO_DELETE_ID:>>>>> ", req.params)
+      const { userId } = req.user;
+      console.log("USER_ID:>>>>> ", req.user)
+      const deletedBusiness = await deleteBusiness(req.params, req.user, {new:true});
+      console.log("DELETED:>>>>> ", deletedBusiness)
+      res.json(deletedBusiness).status(200);
     } catch (error) {
       res.status(500).json(error);
     }

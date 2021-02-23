@@ -18,7 +18,6 @@ passport.use(
     authFields,
     // verify callback
     async (req, email, password, done) => {
-
       const {
         name,
         location,
@@ -31,19 +30,37 @@ passport.use(
         tags,
       } = req.body.business;
 
-      console.log("BUSINESS_BODY:>>>>> ", req.body.business);
       
+
       try {
-        const user = await User.findOne({ email });
-        if (user) {
+        const userExist = await User.findOne({ email });
+        if (userExist) {
           return done(null, false, {
             message: "Email already registered, log in instead.",
           });
         }
-        
-        const business = await Business.create(req.body.business);
-
-        const newUser = await User.create({ email, password, businesses:business });
+        // businesses:business
+        const user = await User.create({ email, password });
+        const userId = user._id;
+        console.log("user_BODY:>>>>> ", user._id);
+        // await Business.create(req.body.business, { owner:user._id });
+        console.log("BUSINESS_BODY:>>>>> ", req.body.business);
+        const business = new Business({
+          name,
+          location,
+          url,
+          img,
+          description,
+          certifications,
+          shipping,
+          categories,
+          tags,
+          owner: userId
+        });
+        await business.save();
+        await User.updateOne({_id: userId},{ $push: { businesses:business } });
+        const newUser = await User.findById(userId);
+        console.log("NEW_USER:>>>>> ", newUser)  
         // the verify callback invokes 'done' to supply Passport with the user that authenticated.
         console.log("User Registration succesful");
         return done(null, newUser);

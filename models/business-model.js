@@ -61,6 +61,10 @@ const BusinessSchema = new Schema({
       "recycled",
     ],
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Business", BusinessSchema);

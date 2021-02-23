@@ -8,7 +8,7 @@ const {
   apiCreateBusiness,
   apiGetBusinessById,
   apiUpdateBusiness,
-  apiDeleteBusiness
+  apiDeleteBusiness,
 } = require("../../controllers/business.controller");
 
 // only users with verified tokens can acess this route
@@ -42,6 +42,7 @@ profileRouter.get("/profile/business/:_id", apiGetBusinessById);
 profileRouter.put("/profile/business/:_id/update", apiUpdateBusiness);
 
 // DELETE business
+// CANCELA EL BUSINESS PERO NO LO ELIMINA DEL ARRAY DEL USER PORQUÉ!!
 profileRouter.delete("/profile/business/:_id/delete", apiDeleteBusiness);
 
 module.exports = profileRouter;

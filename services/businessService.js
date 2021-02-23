@@ -70,11 +70,17 @@ module.exports = {
     }
   },
 
-  deleteBusiness: async (id) => {
+  deleteBusiness: async (_id,id,options) => {
+    
+
     try {
-      const deletedBusiness = await Business.findByIdAndRemove(id);
+      const deletedBusiness = await Business.findByIdAndDelete(_id);
       console.log("BUSINESS_TO_DELETE:>>>>> ", deletedBusiness)
-      return deletedBusiness;
+      const updateBusinessArray = await User.findByIdAndUpdate(id, { $set:{ $pull:{ businesses:deletedBusiness }} }, options)
+      console.log("BUSINESS_upDatEd:>>>>> ", updateBusinessArray)
+      
+      
+      return {user:updateBusinessArray};
     } catch (error) {
       console.log(`Could not delete user ${error}`);
     }
